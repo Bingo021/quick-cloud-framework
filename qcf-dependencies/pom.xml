@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.quick.cloud</groupId>
+    <artifactId>qcf-dependencies</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>基础pom依赖，专门提取出一个模块作为依赖模块可防止分布式部署时依赖问题</description>
+
+    <properties>
+        <revision>1.0.0-jdk11-SNAPSHOT</revision>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
+        <!--统一管理依赖-->
+        <spring.framework.version>5.3.39</spring.framework.version>
+        <spring.security.version>5.8.14</spring.security.version>
+        <spring.boot.version>2.7.18</spring.boot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 内部模块依赖 -->
+        </dependencies>
+    </dependencyManagement>
+</project>
