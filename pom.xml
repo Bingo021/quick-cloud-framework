@@ -13,7 +13,6 @@
         <module>qcf-dependencies</module>
         <module>qcf-framework</module>
         <module>qcf-module-system</module>
-        <module>qcf-server</module>
     </modules>
 
     <properties>
