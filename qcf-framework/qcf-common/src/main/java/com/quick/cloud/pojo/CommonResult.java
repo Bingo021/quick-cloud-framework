@@ -1,12 +1,16 @@
 package com.quick.cloud.pojo;
 
 import cn.hutool.core.lang.Assert;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.quick.cloud.exception.ServerException;
+import com.quick.cloud.exception.ServiceException;
 import com.quick.cloud.exception.enums.GlobalErrorCodeConstants;
 import com.quick.cloud.exception.ErrorCode;
 import com.quick.cloud.exception.util.ServiceExceptionUtil;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @ClassName CommonResult
@@ -74,5 +78,44 @@ public class CommonResult<T> implements Serializable {
         return error(errorCode.getCode(), errorCode.getMsg());
     }
 
+    public static boolean isSuccess(Integer code) {
+        return Objects.equals(code, GlobalErrorCodeConstants.SUCCESS.getCode());
+    }
+
+    @JsonIgnore // 避免 jackson 序列化
+    public boolean isSuccess(){
+        return isSuccess(code);
+    }
+
+    @JsonIgnore // 避免 jackson 序列化
+    public boolean isError(){
+        return !isSuccess();
+    }
+
+    // === 异常相关方法 ====
+    /**
+     * 判断是否有异常。如果有，则抛出 {@link ServiceException} 异常
+     */
+    public void checkError() throws ServerException{
+        if (isSuccess()) {
+            return;
+        }
+        // 直接抛出业务异常
+        throw new ServerException(code, msg);
+    }
+
+    /**
+     * 判断是否有异常。如果有，则抛出 {@link ServiceException} 异常
+     * 如果没有，则返回 {@link #data} 数据
+     */
+    @JsonIgnore // 避免 jackson 序列化
+    public T getCheckedData() {
+        checkError();
+        return data;
+    }
+
+    public static <T> CommonResult<T> error(ServiceException serviceException) {
+        return error(serviceException.getCode(), serviceException.getMessage());
+    }
 
 }

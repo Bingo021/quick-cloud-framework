@@ -7,16 +7,19 @@
     <parent>
         <groupId>com.quick.cloud</groupId>
         <artifactId>quick-cloud-framework</artifactId>
+        <version>${revision}</version>
     </parent>
 
-    <artifactId>qcf-module-system</artifactId>
-    <packaging>jar</packaging>
+    <modules>
+        <module>qcf-module-system-api</module>
+    </modules>
 
-    <dependencies>
-        <!-- 框架核心模块 -->
-        <dependency>
-            <groupId>com.quick.cloud</groupId>
-            <artifactId>qcf-framework</artifactId>
-        </dependency>
-    </dependencies>
+    <artifactId>qcf-module-system</artifactId>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>
+        system 模块下，我们放通用业务，支撑上层的核心业务。
+        例如说：用户、部门、权限、数据字典等等
+    </description>
 </project>
